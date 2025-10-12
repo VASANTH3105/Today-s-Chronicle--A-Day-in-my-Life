@@ -1,19 +1,18 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import moment from 'moment'; // 1. Import moment
-
+import moment from 'moment';
 import ThemedView from '../themed/ThemedView';
 import ThemedText from '../themed/ThemedText';
-import { useTheme } from '../../context/ThemeContext';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/store';
 import { ThemeColors } from '../../constants/colors';
+import { useTheme } from '../../context/ThemeContext';
 
-const HomeHeader = () => {
+export default function HomeHeader() {
+  const user = useSelector((state: RootState) => state.app.user);
+  const formattedDate = moment().format('dddd, MMMM D, YYYY');
   const { colors } = useTheme();
   const styles = getStyles(colors);
-
-  // 2. Replace date logic with moment
-  const formattedDate = moment().format('dddd, MMMM D, YYYY');
 
   return (
     <ThemedView style={[styles.headerContainer, { backgroundColor: colors.card }]}>
@@ -24,15 +23,13 @@ const HomeHeader = () => {
         <ThemedText style={styles.dateText}>{formattedDate.toUpperCase()}</ThemedText>
     </ThemedView>
   );
-};
-
-export default HomeHeader;
+}
 
 const getStyles = (colors: ThemeColors) =>
   StyleSheet.create({
     headerContainer: {
       paddingHorizontal: 20,
-      paddingBottom: '6%', 
+      paddingBottom: '6%',
       paddingTop: '3%',
       borderBottomLeftRadius: 24,
       borderBottomRightRadius: 24,

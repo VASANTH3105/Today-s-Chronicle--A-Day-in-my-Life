@@ -1,12 +1,15 @@
 import React from 'react';
-import RootNavigator from './src/navigation/RootNavigator';
+import { Provider } from 'react-redux';
+import { store } from './src/redux/store';
+import RootNavigation from './src/navigation/RootNavigator';
 import { ThemeProvider } from './src/context/ThemeContext';
 
 export default function App() {
   return (
-    // Wrap your entire app with the ThemeProvider
-    <ThemeProvider>
-      <RootNavigator />
-    </ThemeProvider>
+    <Provider store={store}>
+      <ThemeProvider>
+      <RootNavigation />
+      </ThemeProvider>
+    </Provider>
   );
 }
