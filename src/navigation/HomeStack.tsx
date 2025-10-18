@@ -2,6 +2,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from '../screens/app/home/HomeScreen';
 import PostDetailsScreen from '../screens/app/home/PostDetailsScreen';
 import { HomeStackParamList } from './types';
+import TaskFormScreen from '../screens/app/tasks/TaskFormScreen';
 
 const Stack = createNativeStackNavigator<HomeStackParamList>();
 
@@ -16,6 +17,7 @@ export default function HomeStack() {
     >
       <Stack.Screen name="Home" component={HomeScreen} />
       <Stack.Screen name="PostDetails" component={PostDetailsScreen} />
+      <Stack.Screen name="TaskForm" component={TaskFormScreen} />
     </Stack.Navigator>
   );
 }

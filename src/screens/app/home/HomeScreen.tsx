@@ -1,5 +1,3 @@
-// src/screens/app/home/HomeScreen.tsx
-
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { useTheme } from '../../../context/ThemeContext';
@@ -8,8 +6,26 @@ import AppHeader from '../../../components/common/AppHeader';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import HomeHeader from '../../../components/common/HomeHeader';
 import First3d from '../../../components/threejs/First3d';
+import DashboardScreen from '../tasks/DashboardScreen';
+import { StackNavigationProp } from '@react-navigation/stack'; // Import navigation prop type
 
-export default function HomeScreen() {
+// This RootStackParamList should be defined in a central navigation types file,
+// but we'll define it here for this example to work.
+type RootStackParamList = {
+  Home: undefined;
+  Dashboard: undefined;
+  TaskForm: { taskId?: string };
+};
+
+// Define the type for the HomeScreen's navigation prop
+type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Home'>;
+
+interface Props {
+  navigation: any;
+}
+
+// ✅ FIX: Accept `navigation` as a prop
+export default function HomeScreen({ navigation }: Props) {
   const { colors } = useTheme();
 
   const handleSearch = () => console.log('Search icon pressed!');
@@ -28,7 +44,10 @@ export default function HomeScreen() {
       <HomeHeader />
 
       {/* 👇 Remove the ThemedView wrapper and apply its style to First3d */}
-      <First3d style={styles.container} />
+      {/* <First3d style={styles.container} /> */}
+      
+      {/* ✅ FIX: Pass the received navigation prop down to DashboardScreen */}
+      <DashboardScreen navigation={navigation} />
 
     </SafeAreaView>
   );
